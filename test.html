@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Js-Verify</title>
+	</head>
+	<body>
+		<form action="" method="POST" id="f">
+			<input type="text" name="name[]" value="dfe32d">
+			<input type="text" name="name[]" value="fe">
+			<input type="text" name="name[]" value="fre">
+			<input type="text" name="name[]" value="vffs">
+			<input type="text" name="email" value="01-30-1991">
+			<input type="file" name="image1">
+			<input type="file" name="image2" multiple>
+			<button type="submit">submit</button>
+		</form>
+
+		<script src="js-verify.js"></script>
+
+		<script>
+
+			document.getElementById('f').addEventListener('submit', function (e)
+			{
+				e.preventDefault()
+
+				const verify = new JsVerify()
+				verify.file('image1').fileRequired().fileName(/^[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/)
+				verify.file('image2').fileRequired().fileSizeMax(10, 'MB')
+				verify.input('email').required().dateMDY()
+				verify.input('name[]').required().maxStr(8).minStr(2)
+				verify.data(9).required().maxNum(10).customError('invalid number')
+
+				console.log(verify.getErrors())
+
+				return false
+			})
+		</script>
+	</body>
+</html>
