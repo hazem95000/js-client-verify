@@ -2,7 +2,7 @@
 
 ```javascript
 
-	const verify = new JsVerify()
+const verify = new JsVerify()
 
 	verify.input('password').required().maxStr(30).minStr(8).pattern(/^[a-zA-Z0-9]+$/)
 	verify.input('email').required().email().maxStr(80)
