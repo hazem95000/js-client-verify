@@ -900,6 +900,7 @@ class JsVerify
 		this.inputName = this.inputName.toString()
 
 		if (this.inputName == '' || this.inputName == null) {
+			//
 			this.inputName = 'error'
 		}
 
