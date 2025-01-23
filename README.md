@@ -1,87 +1,111 @@
-#### Example
+# js-client-verify
 
-```javascript
+`js-client-verify` is a JavaScript library designed to facilitate client-side verification tasks, including validating user inputs (such as email, phone numbers, or form fields) and managing secure token-based authentication. 
 
-const verify = new JsVerify()
+## Features
 
-	verify.input('password').required().maxStr(30).minStr(8).pattern(/^[a-zA-Z0-9]+$/)
-	verify.input('email').required().email().maxStr(80)
-	verify.input('id[]').required().maxNum(100).minNum(2)
-	verify.file('image1').fileRequired().fileType(['jpg', 'jpeg']).fileSizeMax(5, 'MB')
-	verify.file('image2').fileMimeType(['text/javascript', 'text/html']).fileName(/^[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/)
-	verify.data(120).required().maxNum(300).customError('invalid number')
+- **Input Validation**: Ensure user inputs meet specified criteria (e.g., required fields, string length, patterns).
+- **File Validation**: Verify file inputs for type, size, and naming conventions.
+- **Custom Error Handling**: Define custom error messages for specific validation rules.
 
-	// Retrieve the error messages in an object.
-	console.log(verify.getErrors())
+## Installation
 
-	// Check if the validation is successful or not.
-	// Return (true) for success, (false) for failure.
-	if (verify.isValid()) {
-		console.log('success')
-	} else {
-		console.log('failure')
-	}
+To use `js-client-verify` in your project, include the `js-verify.js` script in your HTML file:
+
+```html
+<script src="path/to/js-verify.js"></script>
 ```
 
-#### All Methods
+Ensure that the path correctly points to the location of `js-verify.js` in your project directory.
 
-(_Data Methods_)
+## Usage
 
-Validate form input by name.
-**input('input name')**
+Create an instance of `JsVerify` and utilize its methods to validate inputs and files:
 
-Validate input file.
-**file('input file name')**
+```javascript
+const verify = new JsVerify();
 
-Validate the data from the given value.
-**data('value')**
+// Validate a password input
+verify.input('password').required().minStr(8).maxStr(30).pattern(/^[a-zA-Z0-9]+$/);
+// Validate an email input
+verify.input('email').required().email().maxStr(80);
+// Validate a array input
+verify.input('id[]').required().minNum(2).maxNum(100);
+// Validate a file input
+verify.file('image1').fileRequired().fileType(['jpg', 'jpeg']).fileSizeMax(5, 'MB');
 
-(_Numbers Validation Methods_)
+// Retrieve error messages
+console.log(verify.getErrors());
 
-**numbers()**
-**digits()**
-**digit()**
-**integer()**
-**natural()**
-**whole()**
-**decimal()**
-**maxNum(100)**
-**minNum(15)**
+// Check if validation is successful
+if (verify.isValid()) {
+  console.log('successful');
+} else {
+  console.log('failed');
+}
+```
 
-(_Strings Validation Methods_)
+## Methods
 
-**alpha()**
-**alphas()**
-**alnum()**
-**alnums()**
-**maxStr(20)**
-**minStr(5)**
+### General Methods
 
-(_Files Validation Methods_)
+- `data(value)`: Validates a direct data value.
+- `input(inputName)`: Selects the input field by its name attribute.
+- `required()`: Ensures the field is not empty.
+- `customError(message)`: Sets a custom error message for the current validation chain.
+- `getErrors()`: Returns an object containing all error messages.
+- `isValid()`: Returns `true` if all validations pass; otherwise, `false`.
 
-**fileRequired()**
-**fileName(/^[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/)**
-**fileType(['jpg', 'png'])**
-**fileMimeType(['text/javascript', 'text/html'])**
-**fileSizeMax(5, 'MB')**
-**fileSizeMin(2, 'MB')**
 
-(_Other Validation Methods_)
+### String and Numeric Methods
 
-**required()**
-**email()**
-**ipv4()**
-**ipv6()**
-**url()**
-**dateYMD()** YYYY-MM-DD
-**dateMDY()** MM-DD-YYYY
-**pattern(/^[a-zA-Z]+$/)**
-**customError('custom error message')**
+- `alpha()`: Validates that the input contains only a single alphabetical character (`a-z`, `A-Z`).  
+- `alphas()`: Ensures the input contains only alphabetical characters (`a-z`, `A-Z`), allowing spaces.
+- `alnum()`: Checks that the input contains an alphanumeric character (letters or digits).  
+- `alnums()`: Validates that the input consists of alphanumeric characters (letters and/or digits), allowing spaces.  
 
-(_Errors and Verify Methods_)
+- `minStr(length)`: Sets the minimum string length.
+- `maxStr(length)`: Sets the maximum string length.
 
-Retrieve the error messages in an object.
-**getErrors()**
+- `numbers()`: Validates that the input is a valid number (integer or decimal).  
+- `digits()`: Ensures the input contains only numeric digits (`0-9`).  
+- `digit()`: Validates that the input is a single numeric digit (`0-9`).  
+- `integer()`: Confirms the input is a whole number (including negatives).  
+- `natural()`: Checks that the input is a natural number (positive integer, excluding zero).  
+- `whole()`: Validates that the input is a whole number (non-negative integer, including zero).  
+- `decimal()`: Ensures the input is a decimal number (may include a fractional part).  
 
-Check if the validation status
-**isValid()**
+- `minNum(value)`: Sets the minimum numeric value.
+- `maxNum(value)`: Sets the maximum numeric value.
+
+
+### File Methods
+
+- `file(inputName)`: Selects the file input by its name attribute.
+- `fileRequired()`: Ensures a file is selected.
+- `fileType(types)`: Validates the file extension against an array of allowed types.
+- `fileMimeType(mimeTypes)`: Validates the file MIME type against an array of allowed types.
+- `fileSizeMax(size, unit)`: Sets the maximum file size (e.g., `5, 'MB'`).
+- `fileName(regex)`: Validates the file name against a regular expression.
+
+### Other Methods
+
+- `email()`: Validates the input as a proper email format.
+- `pattern(regex)`: Validates the input against a regular expression.
+- `ipv4()`: Validates that the input is a valid IPv4 address (e.g., `192.168.1.1`).  
+- `ipv6()`: Ensures the input is a valid IPv6 address (e.g., `2001:0db8:85a3:0000:0000:8a2e:0370:7334`).  
+- `url()`: Confirms that the input is a properly formatted URL (e.g., `https://example.com`).  
+- `dateYMD()`: Validates that the input matches the `YYYY-MM-DD` date format.  
+- `dateMDY()`: Ensures the input matches the `MM-DD-YYYY` date format.  
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request with your changes.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgments
+
+Special thanks to all contributors and the open-source community for their invaluable support. 
