@@ -905,6 +905,18 @@ class JsVerify
 		}
 
 		this.errors[this.inputName.replace('[]', '')] = value
+	}	
+	
+	err2 (value) 
+	{
+		this.inputName = this.inputName.toString()
+
+		if (this.inputName == '' || this.inputName == null) {
+			//
+			this.inputName = 'error'
+		}
+
+		this.errors[this.inputName.replace('[]', '')] = value
 	}
 
 	getErrors ()
