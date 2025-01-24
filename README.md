@@ -94,7 +94,7 @@ if (verify.isValid()) {
 - `pattern(regex)`: Validates the input against a regular expression.
 - `ipv4()`: Validates that the input is a valid IPv4 address (e.g., `192.168.1.1`).  
 - `ipv6()`: Ensures the input is a valid IPv6 address (e.g., `2001:0db8:85a3:0000:0000:8a2e:0370:7334`).  
-- `url()`: Confirms that the input is a properly formatted URL (e.g., `https://example.com`).  
+- `url()`: Confirms that the input is a properly formatted URL (e.g, `https://example.com`).  
 - `dateYMD()`: Validates that the input matches the `YYYY-MM-DD` date format.  
 - `dateMDY()`: Ensures the input matches the `MM-DD-YYYY` date format.  
 
